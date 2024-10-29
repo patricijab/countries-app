@@ -85,7 +85,7 @@ onMounted(async () => {
   <main>
     <h1>Countries</h1>
     <div class="filters">
-      <input v-model="searchQuery" placeholder="search ..." @keyup="filterCountries">
+      <input v-model="searchQuery" placeholder="Search..." @keyup="filterCountries">
       <select @change="filterCountries" v-model="chosenRegion">
         <option value="">All</option>
         <option v-for="region in store.regions" :value="region">
@@ -131,6 +131,7 @@ main {
 h1 {
   margin-top: 40px;
   margin-bottom: 20px;
+  font-weight: 700;
 }
 
 h2.favorite {
@@ -140,6 +141,15 @@ h2.favorite {
 
 .filters {
   margin-bottom: 20px;
+}
+
+.filters input {
+  padding: 5px 10px;
+  margin-right: 10px;
+}
+
+.filters select {
+  padding: 5px 10px;
 }
 
 ul {
