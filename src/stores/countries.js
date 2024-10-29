@@ -13,7 +13,9 @@ export const useCountriesStore = defineStore('countries', () => {
     return [...new Set(regionsArray)]
   })
 
-  const favoriteCountries = ref([])
+  const favoriteCountriesFromStoreString = localStorage.getItem("favoriteCountries")
+  const favoriteCountriesFromStore = favoriteCountriesFromStoreString ? JSON.parse(favoriteCountriesFromStoreString) : []
+  const favoriteCountries = ref(favoriteCountriesFromStore)
 
   // call rest countries api
   async function getData() {

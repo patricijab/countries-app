@@ -54,6 +54,15 @@ function showPage(pageNo) {
 function addToFavorites(countryName) {
   if (!store.favoriteCountries.includes(countryName)) {
     store.favoriteCountries.push(countryName)
+    localStorage.setItem("favoriteCountries", JSON.stringify(store.favoriteCountries))
+  }
+}
+
+function removeFromFavorites(countryName) {
+  if (store.favoriteCountries.includes(countryName)) {
+    const index = store.favoriteCountries.indexOf(countryName);
+    store.favoriteCountries.splice(index, 1);
+    localStorage.setItem("favoriteCountries", JSON.stringify(store.favoriteCountries))
   }
 }
 
@@ -89,7 +98,8 @@ onMounted(async () => {
         <li v-for="country in paginatedCountries">
           <h2 :class="{'favorite': store.favoriteCountries.includes(country.name.common) }">{{ country.name.common }} {{ country.flag }}</h2>
           <p><strong>Population:</strong> {{ country.population }}, <strong>Region:</strong> {{ country.region }}</p>
-          <button @click="addToFavorites(country.name.common)">Add to favorites</button>
+          <button v-if="!store.favoriteCountries.includes(country.name.common)" @click="addToFavorites(country.name.common)">Add to favorites</button>
+          <button v-if="store.favoriteCountries.includes(country.name.common)" @click="removeFromFavorites(country.name.common)">Remove from favorites</button>
         </li>
       </ul>
       <div v-if="paginatedCountries.length > 0" class="pagination">
